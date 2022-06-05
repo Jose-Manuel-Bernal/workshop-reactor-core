@@ -6,7 +6,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping(value = "/person")
+@CrossOrigin(origins = "http://localhost:8080/")
+@RequestMapping("/personexcersice")
 public class PersonController {
 
     @Autowired
@@ -14,12 +15,13 @@ public class PersonController {
 
     @PostMapping
     public Mono<Void> post(@RequestBody Mono<Person> personMono) {
-        return personService.insert(personMono);
+        //return personService.insert(personMono);
+        return Mono.empty();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/person/{id}")
     public Mono<Person> getPerson(@PathVariable("id") String id) {
-        return Mono.just(new Person());
+        return personService.getPerson(id);
     }
 
     @PutMapping
@@ -32,10 +34,9 @@ public class PersonController {
         return Mono.empty();
     }
 
-    @GetMapping
+    @GetMapping("/get/persons")
     public Flux<Person> list() {
         return personService.listAll();
     }
-
 
 }
