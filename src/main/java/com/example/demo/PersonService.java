@@ -15,9 +15,10 @@ public class PersonService {
             = (repo, person) -> repo.findByName(person.getName());
     @Autowired
     private PersonRepository repository;
+    private PersonMapper personMapper;
 
-    public Flux<Person> listAll() {
-        return repository.findAll();
+    public Flux<PersonDTO> listAll() {
+        return repository.findAll().map(person -> personMapper.toPersonDTO(person));
     }
 
     public Mono<Void> insert(Mono<Person> personMono) {
@@ -27,8 +28,8 @@ public class PersonService {
                 .then();
     }
 
-    public Mono<Person> getPerson(String id){
-        return repository.findById(id);
+    public Mono<PersonDTO> getPerson(String id){
+        return repository.findById(id).map(person -> personMapper.toPersonDTO(person));
     }
 //private final PersonRepository repository;
 //

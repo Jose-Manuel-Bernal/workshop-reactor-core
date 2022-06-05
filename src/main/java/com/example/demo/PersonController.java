@@ -20,7 +20,7 @@ public class PersonController {
     }
 
     @GetMapping("/get/person/{id}")
-    public Mono<Person> getPerson(@PathVariable("id") String id) {
+    public Mono<PersonDTO> getPerson(@PathVariable("id") String id) {
         return personService.getPerson(id);
     }
 
@@ -35,7 +35,7 @@ public class PersonController {
     }
 
     @GetMapping("/get/persons")
-    public Flux<Person> list() {
+    public Flux<PersonDTO> list() {
         return personService.listAll();
     }
 
